@@ -5,7 +5,7 @@
 */
 
 import * as React from 'react';
-import {View, StatusBar, Text, TextInput, Pressable, StyleSheet} from 'react-native';
+import { View, StatusBar, Text, TextInput, Pressable, StyleSheet } from 'react-native';
 
 export default class App extends React.Component {
   state = {
@@ -15,33 +15,38 @@ export default class App extends React.Component {
   }
 
   atualizaValor1 = (number) => {
-    this.setState({valor1:number})
+    this.setState({valor1: number})
   }
 
   atualizaValor2 = (number) => {
-    this.setState({valor2:number})
+    this.setState({valor2: number})
   }
   
+  roundAccurately(number, decimalPlaces){
+    decimalPlaces = 3;
+    return Number(Math.round(number + "e" + decimalPlaces) + "e-" + decimalPlaces); //code courtesy of Jack Moore https://www.jacklmoore.com/notes/rounding-in-javascript/ - in this case, I'll set the decimal places to a constant three, which is fine for me' applications. thanks m8 HUAHUEAHUAEUH
+  } //code courtesy of Jack Moore https://www.jacklmoore.com/notes/rounding-in-javascript/ - in this case, I'll set the decimal places to a constant three, which is fine for me' applications. thanks m8 HUAHUEAHUAEUH
+
   somar(){
     this.state.resultado = parseFloat(this.state.valor1) + parseFloat(this.state.valor2);
-    document.getElementById("resultado").innerHTML = ("O resultado desta soma é " + roundAccurately(this.state.resultado, 3));
+    document.getElementById("resultado").innerHTML = ("O resultado desta soma é " + this.roundAccurately(this.state.resultado, 3));
   }
 
   subtrair(){
     this.state.resultado = parseFloat(this.state.valor1) - parseFloat(this.state.valor2);
-    document.getElementById("resultado").innerHTML = ("O resultado desta subtração é " + roundAccurately(this.state.resultado, 3));
+    document.getElementById("resultado").innerHTML = ("O resultado desta subtração é " + this.roundAccurately(this.state.resultado, 3));
   }
 
   multiplicar(){
     this.state.resultado = parseFloat(this.state.valor1) * parseFloat(this.state.valor2);
-    document.getElementById("resultado").innerHTML = ("O resultado desta multiplicação é " + roundAccurately(this.state.resultado, 3));
+    document.getElementById("resultado").innerHTML = ("O resultado desta multiplicação é " + this.roundAccurately(this.state.resultado, 3));
   }
 
   dividir(){
     this.state.resultado = parseFloat(this.state.valor1) / parseFloat(this.state.valor2);
-    document.getElementById("resultado").innerHTML = ("O resultado desta divisão é " + roundAccurately(this.state.resultado, 3));
+    document.getElementById("resultado").innerHTML = ("O resultado desta divisão é " + this.roundAccurately(this.state.resultado, 3));
   }
-
+  
   render(){
     return(
       <View style={meuEstilo.container}>
@@ -94,7 +99,9 @@ const meuEstilo = StyleSheet.create({
     marginTop: 5,
     paddingVertical: 6,
     paddingHorizontal: 12,
-    border: '1px solid black',
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: 'black',
     borderRadius: 4,
     elevation: 3,
   },
@@ -104,7 +111,9 @@ const meuEstilo = StyleSheet.create({
     marginBottom: 10,
     paddingVertical: 6,
     paddingHorizontal: 12,
-    border: '1px solid black',
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: 'black',
     borderRadius: 4,
     elevation: 3,
   },
@@ -138,5 +147,3 @@ const meuEstilo = StyleSheet.create({
     letterSpacing: 0.25,
   },
 });
-
-const roundAccurately = (number, decimalPlaces) => Number(Math.round(number + "e" + decimalPlaces) + "e-" + decimalPlaces); //code courtesy of Jack Moore https://www.jacklmoore.com/notes/rounding-in-javascript/ - in this case, I'll set the decimal places to a constant three, which is fine for me' applications. thanks m8 HUAHUEAHUAEUH

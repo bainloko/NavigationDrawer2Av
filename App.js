@@ -5,7 +5,7 @@
 */
 
 import * as React from 'react';
-import { StyleSheet, Text, Button, View } from 'react-native';
+import { StyleSheet, Text, Button, View, AppRegistry } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import * as ExpoSpeech from './src/ExpoSpeech';
@@ -125,3 +125,5 @@ const meuEstilo = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+AppRegistry.registerComponent('main', () => App);

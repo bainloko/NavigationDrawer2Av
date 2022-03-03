@@ -5,7 +5,7 @@
 */
 
 import * as React from 'react';
-import {View, StatusBar, Text, TextInput, Pressable, StyleSheet} from 'react-native';
+import { View, StatusBar, Text, TextInput, Pressable, StyleSheet } from 'react-native';
 
 export default class App extends React.Component {
   state = {
@@ -21,15 +21,15 @@ export default class App extends React.Component {
   atualizaAltura = (number) => {
     this.setState({altura: number});
   }
-
+  
   roundAccurately(number, decimalPlaces){
     decimalPlaces = 3;
     return Number(Math.round(number + "e" + decimalPlaces) + "e-" + decimalPlaces); //code courtesy of Jack Moore https://www.jacklmoore.com/notes/rounding-in-javascript/ - in this case, I'll set the decimal places to a constant three, which is fine for me' applications. thanks m8 HUAHUEAHUAEUH
   }
 
   formula(){
-    this.state.resultadoIMC = this.roundAccurately(parseFloat(this.state.peso) / (parseFloat(this.state.altura) * parseFloat(this.state.altura)));
-    
+    this.state.resultadoIMC = this.roundAccurately((parseFloat(this.state.peso) / (parseFloat(this.state.altura) * parseFloat(this.state.altura))), 3);
+
     if (this.state.resultadoIMC < 18.5){
       document.getElementById("resultado").innerHTML = ("Seu IMC é " + this.state.resultadoIMC + ".\nVocê está com o peso abaixo\ndo normal. Procure um médico\nassim que possível!");
     } else if (this.state.resultadoIMC > 24.9){
@@ -76,7 +76,9 @@ const meuEstilo = StyleSheet.create({
         marginTop: 5,
         paddingVertical: 6,
         paddingHorizontal: 12,
-        border: '1px solid black',
+        borderWidth: 1,
+        borderStyle: 'solid',
+        borderColor: 'black',
         borderRadius: 4,
         elevation: 3,
     },
@@ -86,7 +88,9 @@ const meuEstilo = StyleSheet.create({
         marginBottom: 10,
         paddingVertical: 6,
         paddingHorizontal: 12,
-        border: '1px solid black',
+        borderWidth: 1,
+        borderStyle: 'solid',
+        borderColor: 'black',
         borderRadius: 4,
         elevation: 3,
     },
