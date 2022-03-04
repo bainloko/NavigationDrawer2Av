@@ -1,13 +1,39 @@
 /*
 * @bainloko
 * DDM I
-* 05/10/2021
+* 05/10/2021, 29/10/2021, 04/03/2022
 */
 
 import * as React from 'react';
 import { View, StatusBar, Text, TextInput, Pressable, StyleSheet } from 'react-native';
 
+class ChangeInnerHTML extends React.Component {
+  state = {style: {}, value: ''}
+
+  innerHTML = (style, html) => {
+    this.setState({style: style});
+    this.setState({value: html});
+  }
+
+  render(){
+    return(
+      <View>
+        <Text style={this.state.style}>{this.state.value}</Text>
+      </View>
+    );
+  } 
+} //code courtesy of Akash Mittal https://www.akashmittal.com/react-component-get-element-by-id-code-example-demo/, tweaked by @bemloko
+
 export default class App extends React.Component {
+  constructor(props){
+    super(props);
+    this.componentRef = React.createRef();
+  }
+
+  referComponentByRef = (html) => {
+    this.componentRef.current.innerHTML(meuEstilo.textoResultado, html); //envia o estilo desejado OBJETO e o código HTML a ser inserido SEM FORMATAÇÃO
+  }
+
   state = {
     valor1: 0.0,
     valor2: 0.0,
@@ -15,57 +41,56 @@ export default class App extends React.Component {
   }
 
   atualizaValor1 = (number) => {
-    this.setState({valor1: number})
+    this.setState({valor1: parseFloat(number)})
   }
 
   atualizaValor2 = (number) => {
-    this.setState({valor2: number})
+    this.setState({valor2: parseFloat(number)})
   }
   
   roundAccurately(number, decimalPlaces){
-    decimalPlaces = 3;
     return Number(Math.round(number + "e" + decimalPlaces) + "e-" + decimalPlaces); //code courtesy of Jack Moore https://www.jacklmoore.com/notes/rounding-in-javascript/ - in this case, I'll set the decimal places to a constant three, which is fine for me' applications. thanks m8 HUAHUEAHUAEUH
-  } //code courtesy of Jack Moore https://www.jacklmoore.com/notes/rounding-in-javascript/ - in this case, I'll set the decimal places to a constant three, which is fine for me' applications. thanks m8 HUAHUEAHUAEUH
-
-  somar(){
-    this.state.resultado = parseFloat(this.state.valor1) + parseFloat(this.state.valor2);
-    document.getElementById("resultado").innerHTML = ("O resultado desta soma é " + this.roundAccurately(this.state.resultado, 3));
   }
 
-  subtrair(){
-    this.state.resultado = parseFloat(this.state.valor1) - parseFloat(this.state.valor2);
-    document.getElementById("resultado").innerHTML = ("O resultado desta subtração é " + this.roundAccurately(this.state.resultado, 3));
+  somar(valor1, valor2){
+    this.state.resultado = valor1 + valor2;
+    this.referComponentByRef(("O resultado desta soma é " + this.roundAccurately(this.state.resultado, 3)));
   }
 
-  multiplicar(){
-    this.state.resultado = parseFloat(this.state.valor1) * parseFloat(this.state.valor2);
-    document.getElementById("resultado").innerHTML = ("O resultado desta multiplicação é " + this.roundAccurately(this.state.resultado, 3));
+  subtrair(valor1, valor2){
+    this.state.resultado = valor1 - valor2;
+    this.referComponentByRef(("O resultado desta subtração é " + this.roundAccurately(this.state.resultado, 3)));
   }
 
-  dividir(){
-    this.state.resultado = parseFloat(this.state.valor1) / parseFloat(this.state.valor2);
-    document.getElementById("resultado").innerHTML = ("O resultado desta divisão é " + this.roundAccurately(this.state.resultado, 3));
+  multiplicar(valor1, valor2){
+    this.state.resultado = valor1 * valor2;
+    this.referComponentByRef(("O resultado desta multiplicação é " + this.roundAccurately(this.state.resultado, 3)));
+  }
+
+  dividir(valor1, valor2){
+    this.state.resultado = valor1 / valor2;
+    this.referComponentByRef(("O resultado desta divisão é " + this.roundAccurately(this.state.resultado, 3)));
   }
   
   render(){
     return(
       <View style={meuEstilo.container}>
         <StatusBar />
-        <Text style={meuEstilo.textoInicial}><span>Operações Matemáticas...</span></Text>
+        <View><Text><Text style={meuEstilo.textoInicial}>Operações Matemáticas...</Text></Text></View>
         <TextInput style={meuEstilo.inputExemplo} underlineColorAndroid="transparent" placeholder="Digite o primeiro valor" autoCapitalize="none" onChangeText={this.atualizaValor1} keyboardType="numeric" />
-        <TextInput style={meuEstilo.inputExemplo2} underlineColorAndroid="transparent" placeholder="Digite o segundo valor" autoCapitalize="none" onChangeText={this.atualizaValor2} keyboardType="numeric" /> 
-        <Text style={meuEstilo.textoResultado}><span id="resultado"></span></Text>
-        <Text style={meuEstilo.textoHr}><hr /></Text>
-        <Pressable style={meuEstilo.botaoExemplo} onPress={()=>this.somar(this.state.valor1, this.state.valor2, this.state.resultado)}>
+        <TextInput style={meuEstilo.inputExemplo2} underlineColorAndroid="transparent" placeholder="Digite o segundo valor" autoCapitalize="none" onChangeText={this.atualizaValor2} keyboardType="numeric" />
+        <ChangeInnerHTML ref={node => this.componentRef.current = node} />
+        <View style={meuEstilo.viewHr}></View>
+        <Pressable style={meuEstilo.botaoExemplo} onPress={() => this.somar(this.state.valor1, this.state.valor2)}>
           <Text style={meuEstilo.fonteExemplo}>Somar</Text>
         </Pressable>
-        <Pressable style={meuEstilo.botaoExemplo} onPress={()=>this.subtrair(this.state.valor1, this.state.valor2, this.state.resultado)}>
+        <Pressable style={meuEstilo.botaoExemplo} onPress={() => this.subtrair(this.state.valor1, this.state.valor2)}>
           <Text style={meuEstilo.fonteExemplo}>Subtrair</Text>
         </Pressable>
-        <Pressable style={meuEstilo.botaoExemplo} onPress={()=>this.multiplicar(this.state.valor1, this.state.valor2, this.state.resultado)}>
+        <Pressable style={meuEstilo.botaoExemplo} onPress={() => this.multiplicar(this.state.valor1, this.state.valor2)}>
           <Text style={meuEstilo.fonteExemplo}>Multiplicar</Text>
         </Pressable>
-        <Pressable style={meuEstilo.botaoExemplo} onPress={()=>this.dividir(this.state.valor1, this.state.valor2, this.state.resultado)}>
+        <Pressable style={meuEstilo.botaoExemplo} onPress={() => this.dividir(this.state.valor1, this.state.valor2)}>
           <Text style={meuEstilo.fonteExemplo}>Dividir</Text>
         </Pressable>
       </View>
@@ -126,8 +151,12 @@ const meuEstilo = StyleSheet.create({
     letterSpacing: 0.25,
   },
 
-  textoHr: {
+  viewHr: {
     width: 200,
+    marginTop: 10,
+    marginBottom: 10,
+    borderBottomColor: 'black',
+    borderBottomWidth: 1,
   },
 
   botaoExemplo: {
@@ -135,13 +164,13 @@ const meuEstilo = StyleSheet.create({
     marginTop: 5,
     paddingVertical: 12,
     width: 110,
-    textAlign: 'center',
     borderRadius: 4,
     elevation: 3,
   },
 
   fonteExemplo: {
     color: 'white',
+    textAlign: 'center',
     fontSize: 16,
     lineHeight: 21,
     letterSpacing: 0.25,

@@ -73,7 +73,7 @@ function IMCScreen({ navigation }) {
 
 function FlatListScreen({ navigation }) {
   return (
-    <View style={meuEstilo.botaoExemplo}>
+    <View>
       <FlatList.default />
     </View>
   );
@@ -84,7 +84,7 @@ const Drawer = createDrawerNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <View style={meuEstilo.rodape}><Text style={meuEstilo.fonteExemplo}><b><i>Navigation Drawer - Avaliação 1 @bainloko</i></b></Text></View> 
+      <View style={meuEstilo.rodape}><Text style={meuEstilo.fonteExemplo}>Navigation Drawer - Avaliação 1 @bainloko</Text></View> 
       <Drawer.Navigator initialRouteName="Home">
         <Drawer.Screen name="Home" component={HomeScreen} />
         <Drawer.Screen name="Operações Matemáticas" component={OperacoesMatematicasScreen} />
@@ -113,7 +113,9 @@ const meuEstilo = StyleSheet.create({
   fonteExemplo: {
     color: 'black',
     textAlign: 'center',
+    marginTop: 2,
     fontSize: 14,
+    fontStyle: 'italic',
     lineHeight: 21,
     letterSpacing: 0.25,
   },

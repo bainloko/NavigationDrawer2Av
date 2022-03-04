@@ -5,14 +5,7 @@
 */
 
 import React, { useState } from 'react';
-import {
-  FlatList,
-  SafeAreaView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
+import { FlatList, StatusBar, StyleSheet, Text, View, TouchableOpacity, } from 'react-native';
 
 const DATA = [
   {
@@ -57,21 +50,21 @@ export default function App() {
   };
 
   return (
-    <SafeAreaView style={styles.containerList}>
+    <View style={styles.containerList}>
+      <StatusBar />
       <FlatList
         data={DATA}
         renderItem={renderItem}
         keyExtractor={item => item.id}
         extraData={selectedId}
       />
-    </SafeAreaView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   containerList: {
-    flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
+    margin: StatusBar.currentHeight || 0,
   },
 
   itemList: {

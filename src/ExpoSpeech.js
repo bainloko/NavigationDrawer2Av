@@ -37,13 +37,13 @@ const estilos = StyleSheet.create({
     marginTop: 5,
     paddingVertical: 12,
     width: 300,
-    textAlign: 'center',
     borderRadius: 4,
     elevation: 3,
   },
 
   fonteExemplo: {
     color: 'white',
+    textAlign: 'center',
     fontSize: 16,
     lineHeight: 21,
     letterSpacing: 0.25,
