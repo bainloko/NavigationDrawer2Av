@@ -53,7 +53,7 @@ export default class App extends React.Component {
   }
 
   calcular(peso, altura){
-    this.state.resultadoIMC = (this.roundAccurately(peso / (altura * altura)), 3);
+    this.state.resultadoIMC = this.roundAccurately(peso / (altura * altura)), 3;
 
     if (this.state.resultadoIMC < 18.5){
       this.referComponentByRef(("Seu IMC é " + this.state.resultadoIMC + ".\nVocê está com o peso abaixo\ndo normal. Procure um médico\nassim que possível!"));
