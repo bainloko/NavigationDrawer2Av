@@ -6,6 +6,7 @@
 
 import * as React from 'react';
 import { StyleSheet, Text, Button, View, Dimensions, AppRegistry } from 'react-native';
+import 'react-native-gesture-handler'
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import * as Mapa from './src/Mapa';
